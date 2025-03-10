@@ -52,7 +52,7 @@ else
   if [[ "$ELEMENT_FOUND" == true ]]
   then
     ATOMIC_NUMBER=$(echo $ATOMIC_NUMBER | xargs)
-    ELEMENT_TYPE=$($PSQL "SELECT type FROM properties WHERE atomic_number = $ATOMIC_NUMBER")
+    ELEMENT_TYPE=$($PSQL "SELECT type FROM types FULL JOIN properties USING(type_id) WHERE atomic_number = $ATOMIC_NUMBER")
     ELEMENT_MASS=$($PSQL "SELECT atomic_mass FROM properties WHERE atomic_number = $ATOMIC_NUMBER")
     MELTING_POINT=$($PSQL "SELECT melting_point_celsius FROM properties WHERE atomic_number = $ATOMIC_NUMBER")
     BOILING_POINT=$($PSQL "SELECT boiling_point_celsius FROM properties WHERE atomic_number = $ATOMIC_NUMBER")
